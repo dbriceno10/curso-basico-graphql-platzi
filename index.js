@@ -1,7 +1,13 @@
 "use strict";
-
+require("dotenv").config();
 const { graphql, buildSchema } = require("graphql");
+const express = require("express");
+const { graphqlHTTP } = require("express-graphql");
+const morgan = require("morgan");
 
+const app = express();
+
+const port = process.env.PORT || 8080;
 //definiendo el esquema inicial
 
 const schema = buildSchema(`
@@ -24,31 +30,22 @@ const resolvers = {
 //los tipos escalares en graphql son string, integer, float o boolean
 
 //ejecutar el query hello
-graphql(schema, "{ hello }", resolvers).then((data) => {
-  console.log(data);
-});
+// graphql(schema, "{ hello }", resolvers).then((data) => {
+//   console.log(data);
+// });
 
+app.use(morgan("dev"));
 
-/*
-Los parámetros de graphql se pasan como un objeto
-Los resolvers se colocan del siguiente modo
-
-graphql({
+//El middleware lleva por parámetro un objeto de configuración que va  a indicar el schema a ejecutar, pide los resolvers y por último graphiql que nos va a indicar el entorno de desarrollo de graphql que vamos a utilizar
+app.use(
+  "/api",
+  graphqlHTTP({
     schema: schema,
-    source: '{ saludo}',
-    rootValue: resolvers
-})
-.then((data) => {
-    console.log(data);
-})
-.catch(e => {
-    console.log(e);
+    rootValue: resolvers,
+    graphiql: true,
+  })
+);
+
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
 });
-
-
-Es posible llamar a más de un resolver:
-
-graphql(schema, '{ hello, saludo }', resolvers).then((data) => {
-    console.log(data)
-})
- */
