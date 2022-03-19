@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -e js, graphql index",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +20,7 @@
   },
   "devDependencies": {
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "standard": "^16.0.4"
   }
 }
