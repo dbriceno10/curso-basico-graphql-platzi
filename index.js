@@ -10,6 +10,7 @@ const { readFileSync } = require("fs");
 const { join } = require("path");
 // const { resolvers } = require("./lib/resolvers");
 const resolvers = require("./lib/resolvers");
+// require("./database");
 
 const app = express();
 
