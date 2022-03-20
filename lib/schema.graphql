@@ -1,12 +1,16 @@
 type Course {
-  _id: ID
-  title: String
+  _id: ID!
+  title: String!
   teacher: String
-  description: String
+  description: String!
   topics: String
 }
 
+"los ! son para hacer que un campo sea obligatorio"
+
 type Query {
-  "Devuelve todos los cursos"
+  "Devuelve todos los cursos, getQuerys va a ser de tipo Course"
   getCourses: [Course]
+  "Devuelve un curso por id"
+  getCourse(id: ID!): Course
 }

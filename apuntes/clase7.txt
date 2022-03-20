@@ -1,0 +1,21 @@
+import { makeExecutableSchema } from'@graphql-tools/schema';
+
+const typeDefs = readFileSync(
+  join(`${__dirname}`, 'lib', 'schema.graphql'), 'utf8'
+);
+
+const schema = makeExecutableSchema({ typeDefs, resolvers })
+
+Quitamos el paquete deprecado
+npm uninstall graphql-tools
+Agregamos el que Victor Menciona
+npm i  @graphql-tools/schema
+hice algunos cambios menores en el resolver
+
+const resolvers = {
+    Query: {
+        getCourses: () => mockCourses,
+        getCourse: (_, { id }) => mockCourses.find(course => course._id === id),
+    },
+}
+module.exports = resolvers
