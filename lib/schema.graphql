@@ -14,3 +14,16 @@ type Query {
   "Devuelve un curso por id"
   getCourse(id: ID!): Course
 }
+"Las mutations seran para poder guaradar o enviar información a la base de datos"
+
+input CourseInput {
+  title: String!
+  teacher: String
+  description: String!
+  topics: String
+} 
+
+type Mutation {
+  "Crea un curso"
+  createCourse(input: CourseInput!): Course
+}
