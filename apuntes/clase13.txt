@@ -1,0 +1,17 @@
+Un refactor para el resolver de people para no abrir conexion a la base de datos si no es necesario y no hacer ternarias:
+
+const peopleResolver = async ({ people }) => {
+  try {
+    if (!people || people.length === 0) return [];
+    const db = await connectDB();
+    const ids = people.map(id => ObjectID(id));
+    const peopleData = await db
+      .collection('students')
+      .find({ _id: { $in: ids } })
+      .toArray();
+    return peopleData;
+  } catch (err) {
+    console.log(`Err in people types: ${err.message}`);
+  }
+};
+Aca verificamos si hay people en la collection antes de abrir la conexion y retornamos el Array vacio de una vez. Tambien nos ahorramos las ternarias dentro de la funcion. Coloque la excepcion de people.length === 0 pensando a futuro la posibilidad de remover una persona de people que dejaria un Array vacio en la base de datos.
