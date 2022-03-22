@@ -15,21 +15,36 @@ type Course {
   level: Level
 }
 
-type Student {
+interface Person {
+  _id: ID!
+  name: String!
+  lastName: String!
+}
+
+type Student implements Person {
   _id: ID!
   name: String!
   email: String!
+  avatar: String
 }
+"Vamos a crear el tipo monitor"
+type Monitor implements Person {
+  _id: ID!
+  name: String!
+  email: String!
+  phone: String
+}
+
 "los ! son para hacer que un campo sea obligatorio"
 type Query {
   "Devuelve todos los cursos, getQuerys va a ser de tipo Course"
   getCourses: [Course]
   "Devuelve un curso por id"
   getCourse(id: ID!): Course
-  "Devuelve todos los estudiantes"
-  getStudents: [Student]
+  "Devuelve todos los estudiantes, ahora cambiado a personas"
+  getPeople: [Person]
   "Devuelve un estudiante por id"
-  getStudent(id: ID!): Student
+  getPerson(id: ID!): Person
 }
 
 "Las mutations seran para poder guaradar o enviar información a la base de datos"
@@ -48,14 +63,18 @@ input CourseEditInput {
   topics: String
 }
 
-input StudentEditInput {
+input PersonEditInput {
   name: String
   email: String
+  phone: String
+  avatar: String
 }
 
-input StudentInput {
+input PersonInput {
   name: String!
   email: String!
+  phone: String
+  avatar: String
 }
 
 type Mutation {
@@ -64,14 +83,14 @@ type Mutation {
   "edita un curso"
   editCourse(_id: ID!, input: CourseEditInput): Course
   # createStudent(name: String!, email: String!): Student
-  "crea un estudiante"
-  createStudent(input: StudentInput!): Student
-  "edita un estudiante"
-  editStudent(_id: ID!, input: StudentEditInput): Student
+  "crea una persona"
+  createPerson(input: PersonInput!): Person
+  "edita una persona"
+  editPerson(_id: ID!, input: PersonEditInput): Person
   "Elimina un curso"
   deleteCourse(_id: ID!): Course
   "Elimina un estudiante"
-  deleteStudent(_id: ID!): Student
+  deletePerson(_id: ID!): Person
   "Agrega un estudiante a un curso"
   addStudentToCourse(courseId: ID!, studentId: ID!): Course
 }
