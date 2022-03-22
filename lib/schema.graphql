@@ -18,7 +18,7 @@ type Course {
 interface Person {
   _id: ID!
   name: String!
-  lastName: String!
+  email: String!
 }
 
 type Student implements Person {
