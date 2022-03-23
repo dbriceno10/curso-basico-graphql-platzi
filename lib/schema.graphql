@@ -5,6 +5,9 @@ enum Level {
   avanzado
 }
 
+"Definir una union"
+union GlobalSearch = Course | Student | Monitor
+
 type Course {
   _id: ID!
   title: String!
@@ -45,6 +48,8 @@ type Query {
   getPeople: [Person]
   "Devuelve un estudiante por id"
   getPerson(id: ID!): Person
+  "Ejecuta una búsqueda global y guada esos resultados en un arreglo"
+  searchItems(keyword: String!): [GlobalSearch]
 }
 
 "Las mutations seran para poder guaradar o enviar información a la base de datos"
